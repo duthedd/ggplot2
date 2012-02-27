@@ -310,71 +310,78 @@ scale_break_positions <- function(scale) {
   scale_map(scale, scale_breaks(scale))
 }
 
-scale_breaks_minor<- function(scale, ...) {
+#' Generate minor breaks.
+#' 
+#' Minor breaks can be supplied to the scale as:
+#'
+#' \itemize{
+#'
+#'  \item \code{NULL} to eliminate minor breaks
+#'
+#'  \item \code{waiver()} to use the default breaks - one minor break 
+#     half-way between each major break (in the data space)
+#'
+#'  \item A numeric vector of positions
+#'
+#'  \item A function that is given the range of the data and returns a numeric
+#'     vector of positions
+#'    
+#' }
+#' @keywords internal
+scale_breaks_minor <- function(scale, ...) {
   UseMethod("scale_breaks_minor")
 }
 
 #' @S3method scale_breaks_minor continuous
-scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
-  if (zero_range(as.numeric(limits))) {
-    return()
-  }
+scale_breaks_minor.continuous <- function(scale) {
+  limits <- scale_limits(scale)
+  if (zero_range(limits)) return(NULL)
 
   if (is.null(scale$minor_breaks)) {
     return(NULL)
-  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
-    warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
+  } else if (is.single.na(scale$minor_breaks)) {
+    warning("minor_breaks = NA deprecated. ", 
+      "Please use minor_breaks = NULL to remove minor breaks in the scale.")
     return(NULL)
-  } else if (is.waive(scale$minor_breaks)) {
-    b <- b[!is.na(b)]
-    if (length(b) < 2) return()
-
-    bd <- diff(b)[1]
-    if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-    if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-    breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
-      SIMPLIFY = FALSE)))
   } else if (is.function(scale$minor_breaks)) {
-    breaks <- scale$minor_breaks(scale$trans$inv(limits))
-  } else {
+    breaks <- scale$minor_breaks(scale_break_positions(scale), limits)
+  } else if (is.numeric(scale$minor_breaks)) {
     breaks <- scale$minor_breaks
+  } else {
+    stop("Unknown minor breaks specification")
   }
-  
+
+  # Transform breaks into correct scale
+  breaks <- scale$trans$trans(breaks)
+
   # Any minor breaks outside the dimensions need to be thrown away
   discard(breaks, scale_dimension(scale))
 }
 
-scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
-  limits <- scale$trans$inv(limits)
+#' Generate minor breaks.
+#'
+#' @param n number of minor breaks between each major break
+minor_breaks <- function(n = 1) {
   
-  if (zero_range(as.numeric(limits))) {
-    return(NULL)
-  }
+  function(breaks, limits) {    
+    breaks <- breaks[!is.na(breaks)]
+    if (length(breaks) < 2) return()
 
-  if (is.null(scale$minor_breaks)) {
-    return(NULL)
-  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
-    warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
-    return(NULL)
-  } else if (is.waive(scale$minor_breaks)) {
-    b <- b[!is.na(b)]
-    if (length(b) < 2) return()
+    # Ensure minor breaks cover entire range of data
+    bd <- diff(breaks)[1]
+    if (min(limits) < min(breaks)) {
+      breaks <- c(breaks[1] - bd, breaks)
+    }
+    if (max(limits) > max(breaks)) {
+      breaks <- c(breaks, breaks[length(breaks)] + bd)
+    }
 
-    bd <- diff(b)[1]
-    if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-    if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-    breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
+    unique(unlist(mapply(seq, b[-length(b)], b[-1], length = n + 2,
       SIMPLIFY = FALSE)))
-  } else if (is.function(scale$minor_breaks)) {
-    breaks <- scale$minor_breaks(scale$trans$inv(limits))
-  } else {
-    breaks <- scale$minor_breaks
   }
-  
-  # Any minor breaks outside the dimensions need to be thrown away
-  breaks <- censor(scale$trans$trans(breaks), scale_dimension(scale))
 }
-scale_breaks_minor.datetime <- scale_breaks_minor.date
+
+is.single.na <- function(x) is.atomic(x) && length(x) == 1 && is.na(x)
 
 #' @S3method scale_breaks_minor discrete
 scale_breaks_minor.discrete <- function(...) NULL
