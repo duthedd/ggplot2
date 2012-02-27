@@ -27,7 +27,7 @@ NULL
 #' @export
 #' @param aesthetics character 
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = even_breaks(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -344,7 +344,8 @@ scale_breaks_minor.continuous <- function(scale) {
       "Please use minor_breaks = NULL to remove minor breaks in the scale.")
     return(NULL)
   } else if (is.function(scale$minor_breaks)) {
-    breaks <- scale$minor_breaks(scale_break_positions(scale), limits)
+    data_breaks <- scale$trans$inv(scale_breaks(scale))
+    breaks <- scale$minor_breaks(data_breaks, scale_dimension(scale))
   } else if (is.numeric(scale$minor_breaks)) {
     breaks <- scale$minor_breaks
   } else {
@@ -361,7 +362,7 @@ scale_breaks_minor.continuous <- function(scale) {
 #' Generate minor breaks.
 #'
 #' @param n number of minor breaks between each major break
-minor_breaks <- function(n = 1) {
+even_breaks <- function(n = 1) {
   
   function(breaks, limits) {    
     breaks <- breaks[!is.na(breaks)]
@@ -376,8 +377,8 @@ minor_breaks <- function(n = 1) {
       breaks <- c(breaks, breaks[length(breaks)] + bd)
     }
 
-    unique(unlist(mapply(seq, b[-length(b)], b[-1], length = n + 2,
-      SIMPLIFY = FALSE)))
+    unique(unlist(mapply(seq, breaks[-length(breaks)], breaks[-1], 
+      length = n + 2, SIMPLIFY = FALSE)))
   }
 }
 
