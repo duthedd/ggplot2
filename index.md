@@ -14,10 +14,9 @@ A copy of this site for local use is available here, as a 6 meg zip file. To use
     <input type="text" name="q" size="31" />
     <input type="submit" name="sa" value="Search" />
   </div>
+  <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en">
+  </script>
 </form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en">
-</script>
-
 
 ## Mailing list
 
