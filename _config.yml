@@ -1,5 +1,3 @@
-auto: true
-
 # Add markdown with redcarpet
 markdown: redcarpet
 redcarpet:
@@ -10,3 +8,6 @@ pygments: true
 
 # When served up, the content is under this path
 baseurl: "/ggplot2"
+
+# When served locally with jekyll, automatically update when files change
+auto: true
