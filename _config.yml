@@ -1,3 +1,5 @@
+auto: true
+
 # Add markdown with redcarpet
 markdown: redcarpet
 redcarpet:
@@ -5,3 +7,6 @@ redcarpet:
 
 # Use pygments for syntax highlighting
 pygments: true
+
+# When served up, the content is under this path
+baseurl: "/ggplot2"

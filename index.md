@@ -35,7 +35,7 @@ You must be a member to post messages, but anyone can read the archived discussi
 install.packages("ggplot2")
 ```
 
-(you'll need to make sure you have the most recent version of R to get the most recent version of ggplot)
+(You'll need to make sure you have the most recent version of R to get the most recent version of ggplot)
 
 ## ggplot book
 
