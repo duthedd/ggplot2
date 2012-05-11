@@ -5,19 +5,6 @@ title: ggplot2
 
 ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics.
 
-A copy of this site for local use is available here, as a 6 meg zip file. To use it, unzip and open the index.html page.
-
-<form action="http://www.google.com/cse" id="cse-search-box">
-  <div>
-    Search the site: <input type="hidden" name="cx" value="001874040508206079260:zzkysoltlo0" />
-    <input type="hidden" name="ie" value="UTF-8" />
-    <input type="text" name="q" size="31" />
-    <input type="submit" name="sa" value="Search" />
-  </div>
-  <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en">
-  </script>
-</form>
-
 ## Mailing list
 
 You are welcome to ask ggplot2 questions on R-help, but if you'd like to participate in a more focussed mailing list, please sign up for the [ggplot2 mailing list](https://groups.google.com/forum/?fromgroups#!forum/ggplot2):
