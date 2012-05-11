@@ -20,7 +20,7 @@ A copy of this site for local use is available here, as a 6 meg zip file. To use
 
 ## Mailing list
 
-You are welcome to ask ggplot2 questions on R-help, but if you'd like to participate in a more focussed mailing list, please sign up for the ggplot2 mailing list:
+You are welcome to ask ggplot2 questions on R-help, but if you'd like to participate in a more focussed mailing list, please sign up for the [ggplot2 mailing list](https://groups.google.com/forum/?fromgroups#!forum/ggplot2):
 
 <form action="http://groups.google.com/group/ggplot2/boxsubscribe">
   Your email address: <input type="text" name="email" /> <input type="submit" value="Subscribe" />
