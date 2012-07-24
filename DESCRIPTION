@@ -26,7 +26,8 @@ Imports:
     scales (>= 0.2.1.3),
     memoise,
     proto,
-    MASS
+    MASS,
+    rjson
 Suggests:
     quantreg,
     Hmisc,
@@ -207,3 +208,4 @@ Collate:
     'translate-qplot-lattice.r'
     'annotation-logticks.r'
     'utilities-help.r'
+    'json.r'
