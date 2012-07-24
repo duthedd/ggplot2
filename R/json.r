@@ -58,23 +58,33 @@ as.list.ggplot <- function(x, ...) {
   built <- ggplot_build(x)
   
   # For now, assuming no facetting (facet_null)
-  x_range <- name_matches(built$ranges, "$x\\.")
-  y_range <- name_matches(built$ranges, "$y\\.")
-  x_scale <- c(as.list(built$x_scales[[1]]), x_range)
-  y_scale <- c(as.list(built$y_scales[[1]]), y_range)
+  x_range <- name_matches(built$panel$ranges[[1]], "^x\\.")
+  y_range <- name_matches(built$panel$ranges[[1]], "^y\\.")
+  x_scale <- modifyList(as.list(built$panel$x_scales[[1]]), x_range)
+  y_scale <- modifyList(as.list(built$panel$y_scales[[1]]), y_range)
   # All other non-position scales
   np_scales <- lapply(built$scales$scales, as.list, ...)
+  aesthetics <- vapply(np_scales, function(x) x$aesthetic[[1]], character(1))
+  names(np_scales) <- aesthetics
 
-  spec <- list(
-    layers = lapply(x$layers, as.list, ...),
-    scales = c(list(x = x_scale, y = y_scale), scales),
+  # Combine layers and data
+  data <- built$data
+  names(data) <- vapply(data, digest, character(1))
+  layers <- lapply(x$layers, as.list, ...)
+  
+  stopifnot(length(layers) == length(data))
+  for (i in seq_along(data)) {
+    layers[[i]]$data <- names(data)[[i]]
+  }
+
+  list(
+    layers = layers,
+    scales = c(list(x = x_scale, y = y_scale), np_scales),
     facet = as.list(x$facet, ...),
     coord = as.list(x$coord, ...),
     mapping = as.character(x$mapping),
-    data = if (!is.null(x$data)) digest(x$data)
+    data = data
   )
-  
-  list(spec = spec, data = data)
 }
 
 # JSON inspection/validation -------------------------------------------------
@@ -108,7 +118,7 @@ vector_only <- function(x) {
 }
 compact_rec <- function(x) {
   list <- vapply(x, is.list, logical(1))
-  x[list] <- lapply(x[list], compact2)
+  x[list] <- lapply(x[list], compact_rec)
 
   Filter(function(x) length(x) > 0, x)
 }
