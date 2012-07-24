@@ -80,7 +80,9 @@ Layer <- proto(expr = {
     )
   }
   
-  clone <- function(.) as.proto(.$as.list(all.names=TRUE))
+  clone <- function(.) {
+    as.proto(as.list.environment(., all.names=TRUE))
+  }
   
   use_defaults <- function(., data) {
     df <- aesdefaults(data, .$geom$default_aes(), NULL)
