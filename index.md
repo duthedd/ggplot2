@@ -5,6 +5,10 @@ title: ggplot2
 
 ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics.
 
+## Documentation
+
+ggplot2 documentation is now available at [docs.ggplot2.org](http://docs.ggplot2.org/current/).
+
 ## Mailing list
 
 You are welcome to ask ggplot2 questions on R-help, but if you'd like to participate in a more focussed mailing list, please sign up for the [ggplot2 mailing list](https://groups.google.com/forum/?fromgroups#!forum/ggplot2):
@@ -35,8 +39,3 @@ You might also find the following presentations useful:
 
 * [ggplot2](resources/2007-past-present-future.pdf): past, present and future.
 * One hour [ggplot2 workshop](resources/2007-vanderbilt.pdf) given at Vanderbilt, 2007. ([r code](resources/the-grammar.r))
-
-## Training
-
-From time-to-time I offer face-to-face workshops and training seminars. You can see upcoming events at [lookingatdata.com](http://lookingatdata.com).
-
