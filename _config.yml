@@ -1,7 +1,7 @@
 # Add markdown with redcarpet
 markdown: redcarpet
 redcarpet:
-  extensions: [:smart, :fenced_code, :gh_blockcode, :no_intraemphasis]
+  extensions: [:fenced_code, :gh_blockcode, :no_intraemphasis]
 
 # Use pygments for syntax highlighting
 pygments: true
