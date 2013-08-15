@@ -5,14 +5,13 @@ title: ggplot2 book
 
 ggplot2: elegant graphics for data analysis
 
-[Amazon.com](http://tinyurl.com/ggplot2-book) ($48)
+[Amazon.com](http://amzn.com/0387981403?tag=ggplot2-20) ($48)
 
 ## Sample chapters
 
 * [Table of contents](toc.pdf)
 * [Getting started with qplot](qplot.pdf)
 * [Appendices](appendices.pdf): translating between different syntaxes, aesthetic specifications and manipulating plot rendering with grid.
-  
 
 ## Code
 

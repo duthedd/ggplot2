@@ -27,11 +27,11 @@ install.packages("ggplot2")
 
 (You'll need to make sure you have the most recent version of R to get the most recent version of ggplot)
 
-## ggplot book
+## Books about ggplot2
 
-[ggplot2: Elegant Graphics for Data Analysis](http://tinyurl.com/ggplot2-book) is now available on amazon.com. It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. The book gives you an high-level overview of the package that you just can't get from reading the documentation.
+* The [R Graphics Cookbook](http://amzn.com/1449316956?tag=ggplot2-20) by Winston Chang provides a set of recipes to solve common graphics problems. Read this book if you want to start making standard graphics with ggplot2 as quickly as possible.
 
-You can read sample chapters and download the book code from the [book website](book/).
+* [ggplot2: Elegant Graphics for Data Analysis](http://amzn.com/0387981403?tag=ggplot2-20) by Hadley Wickham describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. This book helps you understand the theory that underpins ggplot2, and will help you create new types of graphic specifically tailored to your needs. You can read sample chapters and download the book code from the [book website](book/).
 
 ## Other resources
 
