@@ -38,72 +38,58 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     margin <- margin(0, 0, 0, 0)
   }
 
-  theta <- angle / 180 * pi
-
-  side <- match.arg(side, c("t", "r", "b", "l"))
-
   angle <- angle %% 360
-
-
-
-  if (side == "t") {
-    vjust <- 0
-    y <- y %||% margin[3]
-    x <- x %||% unit(hjust, "npc")
-  } else if (side == "b") {
-    vjust <- 1
-    y <- y %||% (unit(1, "npc") - margin[1])
-    x <- x %||% unit(hjust, "npc")
-  } else if (side == "l") {
-    if (angle == 90) {
-      xp <- 1 - vjust
-      yp <- hjust
-    } else if (angle == 180) {
-      xp <- 1 - hjust
-      yp <- 1 - vjust
-    } else if (angle == 270) {
-      xp <- vjust
-      yp <- 1 - hjust
-    } else {
-      xp <- hjust
-      yp <- vjust
-    }
-
-    x <- x %||% unit(xp, "npc")
-    y <- y %||% unit(yp, "npc")
+  if (angle == 90) {
+    xp <- 1 - vjust
+    yp <- hjust
+  } else if (angle == 180) {
+    xp <- 1 - hjust
+    yp <- 1 - vjust
+  } else if (angle == 270) {
+    xp <- vjust
+    yp <- 1 - hjust
   } else {
-    stop("Not yet implemented")
+    xp <- hjust
+    yp <- vjust
+  }
+  x <- x %||% unit(xp, "npc")
+  y <- y %||% unit(yp, "npc")
+
+  if (side %in% c("l", "r")) {
+    widths <- unit.c(margin[4], unit(1, "strwidth", label), margin[2])
+    vp <- viewport(layout = grid.layout(1, 3, widths = widths))
+    child_vp <- viewport(name = "text", layout.pos.col = 2)
+
+    heights <- unit(1, "null")
+  } else if (side %in% c("t", "b")) {
+    heights <- unit.c(margin[1], unit(1, "strheight", label), margin[3])
+
+    vp <- viewport(layout = grid.layout(3, 1, heights = heights))
+    child_vp <- viewport(name = "text", layout.pos.row = 2)
+
+    widths <- unit(1, "null")
   }
 
-  grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust, rot = angle,
-    gp = gp)
-
-  # Add on extra attributes needed by title grob
-  grob$margin <- margin
-  grob$side <- side
-  class(grob) <- c("titleGrob", class(grob))
-  grob
+  gTree(
+    children = gList(
+      rectGrob(gp = gpar(fill = "grey90")),
+      pointsGrob(x[1], y[1], pch = 20, gp = gpar(col = "grey80")),
+      textGrob(label, x, y, hjust = hjust, vjust = vjust,
+        rot = angle, gp = gp)
+    ),
+    vp = vpTree(vp, vpList(child_vp)),
+    widths = widths,
+    heights = heights,
+    cl = "titleGrob"
+  )
 }
 
 #' @export
 widthDetails.titleGrob <- function(x) {
-  textWidth <- NextMethod()
-  if (x$side %in% c("t", "b"))
-    return(textWidth)
-
-  textWidth + x$margin[2] + x$margin[4]
+  sum(x$widths)
 }
 
 #' @export
 heightDetails.titleGrob <- function(x) {
-  textHeight <- NextMethod()
-  if (x$side %in% c("r", "l"))
-    return(textHeight)
-
-  textHeight + x$margin[1] + x$margin[3]
-}
-
-drawDetails.titleGrob <- function(x, ...) {
-  grid.points(x$x[1], x$y[1], pch = 20, gp = gpar(col = "grey50"))
-  NextMethod()
+  sum(x$heights)
 }
