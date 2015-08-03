@@ -44,18 +44,35 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   angle <- angle %% 360
 
-  if (angle == 90) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (angle == 180) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (angle == 270) {
-    xp <- vjust
-    yp <- 1 - hjust
+
+
+  if (side == "t") {
+    vjust <- 0
+    y <- y %||% margin[3]
+    x <- x %||% unit(hjust, "npc")
+  } else if (side == "b") {
+    vjust <- 1
+    y <- y %||% (unit(1, "npc") - margin[1])
+    x <- x %||% unit(hjust, "npc")
+  } else if (side == "l") {
+    if (angle == 90) {
+      xp <- 1 - vjust
+      yp <- hjust
+    } else if (angle == 180) {
+      xp <- 1 - hjust
+      yp <- 1 - vjust
+    } else if (angle == 270) {
+      xp <- vjust
+      yp <- 1 - hjust
+    } else {
+      xp <- hjust
+      yp <- vjust
+    }
+
+    x <- x %||% unit(xp, "npc")
+    y <- y %||% unit(yp, "npc")
   } else {
-    xp <- hjust
-    yp <- vjust
+    stop("Not yet implemented")
   }
 
   grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust, rot = angle,
