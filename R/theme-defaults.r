@@ -69,7 +69,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     text =               element_text(
                             family = base_family, face = "plain",
                             colour = "black", size = base_size,
-                            lineheight = 1, hjust = 0.5, vjust = 0.5, angle = 0,
+                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin()
                          ),
     axis.text =          element_text(size = rel(0.8), colour = "grey50"),
@@ -114,8 +114,8 @@ theme_grey <- function(base_size = 12, base_family = "") {
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
-    strip.text.x =       element_text(),
-    strip.text.y =       element_text(angle = -90),
+    strip.text.x =       element_text(margin = margin(t = base_size / 2, b = base_size / 2)),
+    strip.text.y =       element_text(angle = 90, margin = margin(l = base_size / 2, r = base_size / 2)),
     strip.switch.pad.grid = unit(0.1, "cm"),
     strip.switch.pad.wrap = unit(0.1, "cm"),
 
