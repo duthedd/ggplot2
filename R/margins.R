@@ -65,6 +65,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     heights <- unit(1, "null")
   } else if (side %in% c("t", "b")) {
     heights <- unit.c(margin[1], unit(1, "grobwidth", text_grob), margin[3])
+    heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
 
     vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
     child_vp <- viewport(name = "text", layout.pos.row = 2)
