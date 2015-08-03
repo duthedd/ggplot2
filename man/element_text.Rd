@@ -6,7 +6,7 @@
 \usage{
 element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL)
+  color = NULL, margin = NULL)
 }
 \arguments{
 \item{family}{font family}

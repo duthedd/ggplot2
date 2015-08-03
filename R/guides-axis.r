@@ -51,9 +51,9 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   labels <- switch(position,
     top = ,
-    bottom = element_render(theme, label_render, labels, x = label_x),
+    bottom = element_render(theme, label_render, labels, x = label_x, side = "b"),
     right = ,
-    left =  element_render(theme, label_render, labels, y = label_y))
+    left =  element_render(theme, label_render, labels, y = label_y, side = "l"))
 
   line <- switch(position,
     top =    element_render(theme, "axis.line.x", c(0, 1), c(0, 0), id.lengths = 2),

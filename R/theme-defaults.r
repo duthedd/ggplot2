@@ -65,20 +65,23 @@ theme_grey <- function(base_size = 12, base_family = "") {
     line =               element_line(colour = "black", size = 0.5, linetype = 1,
                             lineend = "butt"),
     rect =               element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-    text =               element_text(family = base_family, face = "plain",
+    text =               element_text(
+                            family = base_family, face = "plain",
                             colour = "black", size = base_size,
-                            hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
+                            lineheight = 1, hjust = 0.5, vjust = 0.5, angle = 0,
+                            margin = margin(base_size / 4)
+                         ),
     axis.text =          element_text(size = rel(0.8), colour = "grey50"),
     strip.text =         element_text(size = rel(0.8)),
 
     axis.line =          element_blank(),
-    axis.text.x =        element_text(vjust = 1),
-    axis.text.y =        element_text(hjust = 1),
+    axis.text.x =        element_text(margin = margin(base_size / 4)),
+    axis.text.y =        element_text(margin = margin()),
     axis.ticks =         element_line(colour = "grey50"),
-    axis.title.x =       element_text(),
-    axis.title.y =       element_text(angle = 90),
-    axis.ticks.length =  unit(0.15, "cm"),
-    axis.ticks.margin =  unit(0.1, "cm"),
+    axis.title.x =       element_text(margin = margin(0.8 * base_size / 2)),
+    axis.title.y =       element_text(angle = 90, margin = margin(r = 0.8 * base_size / 2)),
+    axis.ticks.length =  unit(base_size / 4, "pt"),
+    axis.ticks.margin =  unit(0, "cm"),
 
     legend.background =  element_rect(colour = NA),
     legend.margin =      unit(0.2, "cm"),
@@ -111,8 +114,12 @@ theme_grey <- function(base_size = 12, base_family = "") {
     strip.switch.pad.wrap = unit(0.1, "cm"),
 
     plot.background =    element_rect(colour = "white"),
-    plot.title =         element_text(size = rel(1.2)),
-    plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
+    plot.title =         element_text(
+                           size = rel(1.2),
+                           margin = margin(b = base_size * 1.2 / 2)
+                         ),
+    plot.margin =        margin(),
+#     plot.margin =        margin(base_size / 2, base_size / 2, base_size / 2, base_size / 2),
 
     complete = TRUE
   )
@@ -237,3 +244,4 @@ theme_void <- function(base_size = 12, base_family = "") {
     complete = TRUE
   )
 }
+

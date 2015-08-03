@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `element_text()` gains a margins argument which allows you to add additional
+  margins around text elements in the plot. The default themes have been
+  adjusted to add a little extra spacing between titles and text (proportional
+  to the font size) so the plots don't feel so cramped.
+
 * ggplot2 re-exports grid `arrow()` and `unit()` so you don't need to attach
   grid or use `grid::` for these commonly used functions (#1225)
 
