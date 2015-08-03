@@ -16,7 +16,7 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   at <- unit(at, "native")
   length <- theme$axis.ticks.length
-  label_pos <- length + theme$axis.ticks.margin
+  label_pos <- length
 
   nticks <- length(at)
 

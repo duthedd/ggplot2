@@ -64,22 +64,28 @@ theme_grey <- function(base_size = 12, base_family = "") {
     # by others
     line =               element_line(colour = "black", size = 0.5, linetype = 1,
                             lineend = "butt"),
-    rect =               element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
+    rect =               element_rect(fill = "white", colour = "black",
+                            size = 0.5, linetype = 1),
     text =               element_text(
                             family = base_family, face = "plain",
                             colour = "black", size = base_size,
                             lineheight = 1, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(base_size / 4)
+                            margin = margin()
                          ),
     axis.text =          element_text(size = rel(0.8), colour = "grey50"),
     strip.text =         element_text(size = rel(0.8)),
 
     axis.line =          element_blank(),
-    axis.text.x =        element_text(margin = margin(base_size / 4)),
-    axis.text.y =        element_text(margin = margin()),
+    axis.text.x =        element_text(margin = margin(t = base_size / 6), vjust = 1),
+    axis.text.y =        element_text(margin = margin(r = base_size / 6), hjust = 1),
     axis.ticks =         element_line(colour = "grey50"),
-    axis.title.x =       element_text(margin = margin(0.8 * base_size / 2)),
-    axis.title.y =       element_text(angle = 90, margin = margin(r = 0.8 * base_size / 2)),
+    axis.title.x =       element_text(
+                           margin = margin(t = 0.8 * base_size / 2)
+                         ),
+    axis.title.y =       element_text(
+                           angle = 90,
+                           margin = margin(r = 0.8 * base_size / 2)
+                         ),
     axis.ticks.length =  unit(base_size / 4, "pt"),
     axis.ticks.margin =  unit(0, "cm"),
 
@@ -118,8 +124,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
                            size = rel(1.2),
                            margin = margin(b = base_size * 1.2 / 2)
                          ),
-    plot.margin =        margin(),
-#     plot.margin =        margin(base_size / 2, base_size / 2, base_size / 2, base_size / 2),
+    plot.margin =        margin(base_size / 2, base_size / 2, base_size / 2, base_size / 2),
 
     complete = TRUE
   )
