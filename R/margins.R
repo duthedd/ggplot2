@@ -55,16 +55,18 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   x <- x %||% unit(xp, "npc")
   y <- y %||% unit(yp, "npc")
 
+  text_grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust, rot = angle, gp = gp)
+
   if (side %in% c("l", "r")) {
-    widths <- unit.c(margin[4], unit(1, "strwidth", label), margin[2])
-    vp <- viewport(layout = grid.layout(1, 3, widths = widths))
+    widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
+    vp <- viewport(layout = grid.layout(1, 3, widths = widths), gp = gp)
     child_vp <- viewport(name = "text", layout.pos.col = 2)
 
     heights <- unit(1, "null")
   } else if (side %in% c("t", "b")) {
-    heights <- unit.c(margin[1], unit(1, "strheight", label), margin[3])
+    heights <- unit.c(margin[1], unit(1, "grobwidth", text_grob), margin[3])
 
-    vp <- viewport(layout = grid.layout(3, 1, heights = heights))
+    vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
     child_vp <- viewport(name = "text", layout.pos.row = 2)
 
     widths <- unit(1, "null")
@@ -73,9 +75,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   gTree(
     children = gList(
       rectGrob(gp = gpar(fill = "grey90")),
-      pointsGrob(x[1], y[1], pch = 20, gp = gpar(col = "grey80")),
-      textGrob(label, x, y, hjust = hjust, vjust = vjust,
-        rot = angle, gp = gp)
+      pointsGrob(x[1], y[1], pch = 20, gp = gpar(col = "red")),
+      text_grob
     ),
     vp = vpTree(vp, vpList(child_vp)),
     widths = widths,
