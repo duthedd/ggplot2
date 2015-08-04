@@ -234,7 +234,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.ticks.y        = el_def("element_line", "axis.ticks"),
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.y        = el_def("element_text", "axis.title"),
-  axis.ticks.margin   = el_def("unit"),
 
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("unit"),

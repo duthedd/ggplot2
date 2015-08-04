@@ -87,7 +87,6 @@ theme_grey <- function(base_size = 12, base_family = "") {
                            margin = margin(r = 0.8 * base_size / 2)
                          ),
     axis.ticks.length =  unit(base_size / 4, "pt"),
-    axis.ticks.margin =  unit(0, "cm"),
 
     legend.background =  element_rect(colour = NA),
     legend.margin =      unit(0.2, "cm"),
