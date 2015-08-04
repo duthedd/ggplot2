@@ -32,6 +32,7 @@ margin_width <- function(grob, margins) {
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, expand_x = FALSE, expand_y = FALSE,
                       debug = FALSE) {
+
   if (is.null(label))
     return(zeroGrob())
 
@@ -79,7 +80,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
     widths <- unit(1, "null")
   } else {
-    stop("Not implemented")
+    return(text_grob)
   }
 
   if (debug) {

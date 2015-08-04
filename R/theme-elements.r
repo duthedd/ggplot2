@@ -150,6 +150,9 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
   margin = NULL, expand_x = FALSE, expand_y = FALSE) {
 
+  if (is.null(label))
+    return(zeroGrob())
+
   vj <- vjust %||% element$vjust
   hj <- hjust %||% element$hjust
   margin <- margin %||% element$margin
