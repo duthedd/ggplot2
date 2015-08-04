@@ -4,13 +4,10 @@
 \alias{margin}
 \title{Define margins.}
 \usage{
-margin(t, r, b, l, unit = "pt")
+margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
 }
 \arguments{
-\item{t,b,r,l}{Dimensions of each margin. Uses CSS recyling rules, so if you
-want the same margin in all directions, use one argument, if you want
-the vertical and horizontal margins, use two arguments.
-(To remember order, think trouble).}
+\item{t,b,r,l}{Dimensions of each margin. (To remember order, think trouble).}
 
 \item{unit}{Default units of dimensions. Defaults to "pt" so it
 can be most easily scaled with the text.}
