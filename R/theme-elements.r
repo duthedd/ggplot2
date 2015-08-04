@@ -148,7 +148,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  margin = NULL, side = "t") {
+  margin = NULL, expand_x = FALSE, expand_y = FALSE) {
 
   vj <- vjust %||% element$vjust
   hj <- hjust %||% element$hjust
@@ -169,7 +169,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 
   titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
     gp = utils::modifyList(element_gp, gp), margin = margin,
-    side = side)
+    expand_x = expand_x, expand_y = expand_y)
 }
 
 

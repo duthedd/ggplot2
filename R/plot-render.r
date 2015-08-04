@@ -54,8 +54,8 @@ ggplot_gtable <- function(data) {
     x = xlabel(panel, plot$labels),
     y = ylabel(panel, plot$labels)
   ))
-  xlabel <- element_render(theme, "axis.title.x", labels$x, side = "b")
-  ylabel <- element_render(theme, "axis.title.y", labels$y, side = "l")
+  xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
+  ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
 
   panel_dim <-  find_panel(plot_table)
 
@@ -137,7 +137,7 @@ ggplot_gtable <- function(data) {
   }
 
   # Title
-  title <- element_render(theme, "plot.title", plot$labels$title, side = "t")
+  title <- element_render(theme, "plot.title", plot$labels$title, expand_y = TRUE)
   title_height <- grobHeight(title)
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,

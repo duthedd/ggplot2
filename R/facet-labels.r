@@ -382,7 +382,8 @@ ggstrip <- function(text, horizontal = TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
-  label <- element_render(theme, text_theme, text, side = if (horizontal) "t" else "r")
+  label <- element_render(theme, text_theme, text, expand_x = !horizontal,
+    expand_y = horizontal)
 
   ggname("strip", absoluteGrob(
     gList(

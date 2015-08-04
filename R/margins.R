@@ -30,7 +30,8 @@ margin_width <- function(grob, margins) {
 }
 
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
-                         margin = NULL, side = "t", debug = FALSE) {
+                      margin = NULL, expand_x = FALSE, expand_y = FALSE,
+                      debug = FALSE) {
   if (is.null(label))
     return(zeroGrob())
 
@@ -58,20 +59,27 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   text_grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust,
     rot = angle, gp = gp)
 
-  side <- match.arg(side, c("l", "r", "t", "b"))
-  if (side %in% c("l", "r")) {
+  if (expand_x && expand_y) {
+    widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
+    heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
+
+    vp <- viewport(layout = grid.layout(3, 3, heights = heights, widths = widths), gp = gp)
+    child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
+  } else if (expand_x) {
     widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
     vp <- viewport(layout = grid.layout(1, 3, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.col = 2)
 
     heights <- unit(1, "null")
-  } else if (side %in% c("t", "b")) {
+  } else if (expand_y) {
     heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
 
     vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
     child_vp <- viewport(layout.pos.row = 2)
 
     widths <- unit(1, "null")
+  } else {
+    stop("Not implemented")
   }
 
   if (debug) {
